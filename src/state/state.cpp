@@ -5,7 +5,7 @@
 #include "./state.hpp"
 #include "../config.hpp"
 
-
+using namespace std;
 /**
  * @brief evaluate the state
  * 
@@ -13,7 +13,69 @@
  */
 int State::evaluate(){
   // [TODO] design your own evaluation function
-  return 0;
+  int sum=0,sum1=0,ans;
+  for(int i=0;i<BOARD_H;i++)
+  {
+    for(int j=0;j<BOARD_W;j++)
+    {
+      if(this->board.board[this->player][i][j]==1)
+      {
+        sum+=1;
+      }
+      else if(this->board.board[this->player][i][j]==2)
+      {
+        sum+=5;
+      }
+      else if(this->board.board[this->player][i][j]==3)
+      {
+        sum+=10;
+      }
+      else if(this->board.board[this->player][i][j]==4)
+      {
+        sum+=100;
+      }
+      else if(this->board.board[this->player][i][j]==5)
+      {
+        sum+=300;
+      }
+      else if(this->board.board[this->player][i][j]==6)
+      {
+        sum+=10000;
+      }
+    }
+  }
+  for(int i=0;i<BOARD_H;i++)
+  {
+    for(int j=0;j<BOARD_W;j++)
+    {
+      if(this->board.board[1-this->player][i][j]==1)
+      {
+        sum1+=1;
+      }
+      else if(this->board.board[1-this->player][i][j]==2)
+      {
+        sum1+=5;
+      }
+      else if(this->board.board[1-this->player][i][j]==3)
+      {
+        sum1+=10;
+      }
+      else if(this->board.board[1-this->player][i][j]==4)
+      {
+        sum1+=100;
+      }
+      else if(this->board.board[1-this->player][i][j]==5)
+      {
+        sum1+=300;
+      }
+      else if(this->board.board[1-this->player][i][j]==6)
+      {
+        sum1+=10000;
+      }
+    }
+  }
+  //cout<<sum-sum1<<endl;
+  return sum-sum1;
 }
 
 
