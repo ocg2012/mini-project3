@@ -13,33 +13,43 @@ using namespace std;
  */
 int State::evaluate(){
   // [TODO] design your own evaluation function
-  int sum=0,sum1=0,ans;
+  int sum=0,sum1=0;
+
   for(int i=0;i<BOARD_H;i++)
   {
     for(int j=0;j<BOARD_W;j++)
     {
       if(this->board.board[this->player][i][j]==1)
       {
+        /*if(this->player==0&&(this->board.board[1-this->player][i-1][j-1]||this->board.board[1-this->player][i-1][j+1]))
+          return 5000;
+        if(this->player==1&&(this->board.board[1-this->player][i+1][j+1]||this->board.board[1-this->player][i+1][j-1]))
+          return 5000;*/
         sum+=1;
       }
       else if(this->board.board[this->player][i][j]==2)
       {
+        
         sum+=5;
       }
       else if(this->board.board[this->player][i][j]==3)
       {
+        
         sum+=10;
       }
       else if(this->board.board[this->player][i][j]==4)
       {
+        
         sum+=100;
       }
       else if(this->board.board[this->player][i][j]==5)
       {
+        
         sum+=300;
       }
       else if(this->board.board[this->player][i][j]==6)
       {
+        
         sum+=10000;
       }
     }
@@ -74,8 +84,9 @@ int State::evaluate(){
       }
     }
   }
-  //cout<<sum-sum1<<endl;
-  return sum-sum1;
+  //cout<<this->player<<endl;
+    return sum-sum1;
+  
 }
 
 

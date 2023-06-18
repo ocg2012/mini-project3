@@ -14,61 +14,76 @@ using namespace std;
  * @return Move 
  */
 Move Minimax::get_move(State *state, int depth){
+    auto actions = state->legal_actions;
   Move ans;
   Node* root=new Node;
   root->state=*state;
-  buildtree(root,depth);
-  int val=minimax(root,depth,true);
+  root->state.get_legal_actions();
+  buildtree(root,0);
+  int val=minimax(root,0,true);
+  //cout<<val<<endl;
   for(auto it:root->child)
   {
+    //cout<<it->val<<endl;
     if(it->val==val)
     {
         ans=it->move;
         //cout<<it->val<<endl;
         break;
     }
-        
   }
   return ans;
 }
 
 void buildtree(Node* root,int depth)
 {
-    depth++;
-    if(depth==3)
+    if(depth==2)
         return ;
-    for(int i=0;i<root->state.legal_actions.size();i++)
+    for(int i=0;i<(int)root->state.legal_actions.size();i++)
     {
-        //cout<<i<<endl;
+        //cout<<root->state.legal_actions.size()<<endl;
         Node* tmp=new Node;
         tmp->state=*(root->state.next_state(root->state.legal_actions[i]));
+        tmp->state.get_legal_actions();
         tmp->move=root->state.legal_actions[i];
-        tmp->val=tmp->state.evaluate();
+        /*if(depth==2)
+            tmp->val=tmp->state.evaluate();*/
         root->child.push_back(tmp);
-        buildtree(tmp,depth);
+        buildtree(tmp,depth+1);
     }
+    
+    return;
 }
 
 int Minimax::minimax(Node* root, int depth, bool maxplayer)
 {
-    if(depth==3)
+    //cout<<depth;
+    if(depth==2)
+    {
+        if(depth%2==0)
+            root->val=root->state.evaluate(); 
+        else
+            root->val=-root->state.evaluate();
+        cout<<root->val<<endl;
         return root->val;
+    }
+        
     if(maxplayer)
     {
-        int val=-10000000;
+        root->val=-10000000;
         for(auto it:root->child)
         {
-            val=max(val,minimax(it,++depth,false));
+            root->val=max(root->val,minimax(it,depth+1,false));
         }
-        return val;
+        return root->val;
     }
-    else
+    else 
     {
-        int val=10000000;
+        root->val=10000000;
         for(auto it:root->child)
         {
-            val=min(val,minimax(it,++depth,true));
+            root->val=min(root->val,minimax(it,depth+1,true));
         }
-        return val;
+        return root->val;
     }
 }
