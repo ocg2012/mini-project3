@@ -37,7 +37,7 @@ Move Minimax::get_move(State *state, int depth){
 
 void buildtree(Node* root,int depth)
 {
-    if(depth==2)
+    if(depth==4)
         return ;
     for(int i=0;i<(int)root->state.legal_actions.size();i++)
     {
@@ -58,13 +58,13 @@ void buildtree(Node* root,int depth)
 int Minimax::minimax(Node* root, int depth, bool maxplayer)
 {
     //cout<<depth;
-    if(depth==2)
+    if(depth==4)
     {
         if(depth%2==0)
             root->val=root->state.evaluate(); 
         else
             root->val=-root->state.evaluate();
-        cout<<root->val<<endl;
+        //cout<<root->val<<endl;
         return root->val;
     }
         
