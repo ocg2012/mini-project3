@@ -32,7 +32,7 @@ Move AlphaBeta::get_move(State *state, int depth){
         break;
     }
   }*/
-  int val=alpha_beta2(state,0,-10000000,10000000,true,1);
+  alpha_beta2(state,0,-10000000,10000000,true,1);
   ans=m1;
   return ans;//ans[rand()%ans.size()];
 }
@@ -108,7 +108,7 @@ int AlphaBeta::alpha_beta(Node* root, int depth, int alpha, int beta, bool maxpl
 
 int AlphaBeta::alpha_beta2(State* state, int depth, int alpha, int beta, bool maxplayer, int flag)
 {
-    if(depth==7)
+    if(depth==5)
     {
         if((depth%2==0&&state->player==0)||(depth%2==1&&state->player==1))
         {
