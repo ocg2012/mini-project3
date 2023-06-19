@@ -108,7 +108,7 @@ int AlphaBeta::alpha_beta(Node* root, int depth, int alpha, int beta, bool maxpl
 
 int AlphaBeta::alpha_beta2(State* state, int depth, int alpha, int beta, bool maxplayer, int flag)
 {
-    if(depth==4)
+    if(depth==6)
     {
         if((depth%2==0&&state->player==0)||(depth%2==1&&state->player==1))
         {
