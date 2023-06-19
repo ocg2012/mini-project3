@@ -6,6 +6,139 @@
 #include "../config.hpp"
 
 using namespace std;
+
+/*static const int SafetyTable[100] = {
+    0,  0,   1,   2,   3,   5,   7,   9,  12,  15,
+  18,  22,  26,  30,  35,  39,  44,  50,  56,  62,
+  68,  75,  82,  85,  89,  97, 105, 113, 122, 131,
+ 140, 150, 169, 180, 191, 202, 213, 225, 237, 248,
+ 260, 272, 283, 295, 307, 319, 330, 342, 354, 366,
+ 377, 389, 401, 412, 424, 436, 448, 459, 471, 483,
+ 494, 500, 500, 500, 500, 500, 500, 500, 500, 500,
+ 500, 500, 500, 500, 500, 500, 500, 500, 500, 500,
+ 500, 500, 500, 500, 500, 500, 500, 500, 500, 500,
+ 500, 500, 500, 500, 500, 500, 500, 500, 500, 500
+};*/
+
+static const int SafetyTable[6][5] = {
+  {0,0,1,2,3},
+  {8,13,17,25,39},
+  {55,62,75,82,97},
+  {131,150,169,178},
+  {224,260,279,288,300},
+  {300,300,300,300,300},
+};
+ /*  private static final int[] PAWN_PST = {
+             0,  0,   0,   0,   0,   0,  0,  0,
+            50, 50,  50,  50,  50,  50, 50, 50,
+            10, 10,  20,  30,  30,  20, 10, 10,
+             5,  5,  10,  25,  25,  10,  5,  5,
+             0,  0,   0,  20,  20,   0,  0,  0,
+             5, -5, -10,   0,   0, -10, -5,  5,
+             5, 10,  10, -20, -20,  10, 10,  5,
+             0,  0,   0,   0,   0,   0,  0,  0
+    };*/
+static const int W_Pawntable[6][5]={
+  {0,0,0,0,0},
+  {50,50,50,50,50},
+  {10,15,25,15,10},
+  {0,0,20,0,0},
+  {5,-15,0,-15,5},
+  {0,0,0,0,0}
+};
+
+static const int W_Rooktable[6][5]={
+  {0,0,0,0,0},
+  {5,10,10,10,5},
+  {-5,0,0,0,-5},
+  {-5,0,0,0,-5},
+  {-5,0,0,0,-5},
+  {0,0,0,5,5}
+};
+static const int W_Bishoptable[6][5]={
+  {-10,-10,-10,-10,-20},
+  {-10,0,0,0,-10},
+  {-10,5,10,10,-10},
+  {-10,10,10,10,-10},
+  {-10,5,0,0,0},
+  {-20,-10,-10,-10,-10}
+};
+static const int W_Knighttable[6][5]={
+  {-50,-40,-30,-40-50},
+  {-40,-20,5,-20,-40},
+  {-30,5,20,5,-30},
+  {-10,5,20,5,-30},
+  {-40,-20,5,-10,-40},
+  {-50,-40,-30,-40,-50}
+};
+static const int W_Queentable[6][5]={
+  {-20,-5,-10,-10,-20},
+  {-5,0,5,0,-10},
+  {0,5,5,5,-10},
+  {-10,5,5,5,-10},
+  {-10,0,5,0,-10},
+  {-20,-10,-10,-5,-20}
+};
+static const int W_Kingtable[6][5]={
+  {-30,-40,-50,-40,-30},
+  {-30,-40,-50,-40,-30},
+  {-30,-40,-50,-40,-30},
+  {-10,-20,-30,-20,-30},
+  {0,0,-5,0,0},
+  {10,20,30,20,0}
+};
+
+static const int B_Pawntable[6][5]={
+  {0,0,0,0,0},
+  {5,-15,0,-15,5},
+  {0,0,20,0,0},
+  {10,15,25,15,10},
+  {50,50,50,50,50},
+  {0,0,0,0,0}
+};
+
+static const int B_Rooktable[6][5]={
+  {5,5,0,0,0},
+  {-5,0,0,0,-5},
+  {-5,0,0,0,-5},
+  {-5,0,0,0,-5},
+  {-5,10,10,10,5},
+  {0,0,0,0,0}
+};
+static const int B_Bishoptable[6][5]={
+  {-10,-10,-10,-10,-20},
+  {0,0,0,5,-10},
+  {-10,10,10,10,-10},
+  {-10,10,10,5,-10},
+  {-10,0,0,0,-10},
+  {-20,-10,-10,-10,-10}
+};
+static const int B_Knighttable[6][5]={
+  {-50,-40,-30,-40-50},
+  {-40,-10,5,-20,-40},
+  {-30,5,20,5,-10},
+  {-30,5,20,5,-30},
+  {-40,-20,5,-20,-40},
+  {-50,-40,-30,-40,-50}
+};
+static const int B_Queentable[6][5]={
+  {-20,-5,-10,-10,-20},
+  {-10,0,5,0,-10},
+  {-10,5,5,5,-10},
+  {-10,5,5,5,0},
+  {-10,0,5,0,-5},
+  {-20,-10,-10,-5,-20}
+};
+static const int B_Kingtable[6][5]={
+  {10,20,30,20,0},
+  {0,0,-5,0,0},
+  {-10,-20,-30,-20,-30},
+  {-30,-40,-50,-40,-30},
+  {-30,-40,-50,-40,-30},
+  {-30,-40,-50,-40,-30}
+};
+
+static const int material_table[7] = {0, 2, 6, 7, 8, 20, 100};
 /**
  * @brief evaluate the state
  * 
@@ -13,79 +146,90 @@ using namespace std;
  */
 int State::evaluate(){
   // [TODO] design your own evaluation function
-  int sum=0,sum1=0;
+  int sum=0,sum1=0,materialval,posval,w_posval=0,b_posval=0;
 
   for(int i=0;i<BOARD_H;i++)
   {
     for(int j=0;j<BOARD_W;j++)
     {
-      if(this->board.board[this->player][i][j]==1)
-      {
-        /*if(this->player==0&&(this->board.board[1-this->player][i-1][j-1]||this->board.board[1-this->player][i-1][j+1]))
-          return 5000;
-        if(this->player==1&&(this->board.board[1-this->player][i+1][j+1]||this->board.board[1-this->player][i+1][j-1]))
-          return 5000;*/
-        sum+=1;
-      }
-      else if(this->board.board[this->player][i][j]==2)
-      {
-        
-        sum+=5;
-      }
-      else if(this->board.board[this->player][i][j]==3)
-      {
-        
-        sum+=10;
-      }
-      else if(this->board.board[this->player][i][j]==4)
-      {
-        
-        sum+=100;
-      }
-      else if(this->board.board[this->player][i][j]==5)
-      {
-        
-        sum+=300;
-      }
-      else if(this->board.board[this->player][i][j]==6)
-      {
-        
-        sum+=10000;
-      }
+      sum+=material_table[this->board.board[0/*this->player*/][i][j]]*1000 ;
+      
     }
   }
   for(int i=0;i<BOARD_H;i++)
   {
     for(int j=0;j<BOARD_W;j++)
     {
-      if(this->board.board[1-this->player][i][j]==1)
-      {
-        sum1+=1;
-      }
-      else if(this->board.board[1-this->player][i][j]==2)
-      {
-        sum1+=5;
-      }
-      else if(this->board.board[1-this->player][i][j]==3)
-      {
-        sum1+=10;
-      }
-      else if(this->board.board[1-this->player][i][j]==4)
-      {
-        sum1+=100;
-      }
-      else if(this->board.board[1-this->player][i][j]==5)
-      {
-        sum1+=300;
-      }
-      else if(this->board.board[1-this->player][i][j]==6)
-      {
-        sum1+=10000;
-      }
+      sum1+=material_table[this->board.board[1/*-this->player*/][i][j]]*1000 ;
+      
     }
   }
   //cout<<this->player<<endl;
-    return sum-sum1;
+  materialval=sum-sum1;
+  for(int i=0;i<BOARD_H;i++)
+  {
+    for(int j=0;j<BOARD_W;j++)
+    {
+      if(this->board.board[0][i][j]==1)
+      {
+        w_posval+=material_table[1]*W_Pawntable[i][j];
+      }
+      else if(this->board.board[0][i][j]==2)
+      {
+        
+        w_posval+=material_table[2]*W_Rooktable[i][j];
+      }
+      else if(this->board.board[0][i][j]==3)
+      {
+        w_posval+=material_table[3]*W_Knighttable[i][j];
+        
+      }
+      else if(this->board.board[0][i][j]==4)
+      {
+        w_posval+=material_table[4]*W_Bishoptable[i][j];
+        
+      }
+      else if(this->board.board[0][i][j]==5)
+      {
+        w_posval+=material_table[5]*W_Queentable[i][j]; 
+      }
+      else if(this->board.board[0][i][j]==6)
+      {
+        w_posval+=material_table[5]*W_Kingtable[i][j];
+      }
+
+      if(this->board.board[1][i][j]==1)
+      {
+        b_posval+=material_table[1]*B_Pawntable[i][j];
+      }
+      else if(this->board.board[1][i][j]==2)
+      {
+        
+        b_posval+=material_table[2]*B_Rooktable[i][j];
+      }
+      else if(this->board.board[1][i][j]==3)
+      {
+        b_posval+=material_table[3]*B_Knighttable[i][j];
+        
+      }
+      else if(this->board.board[1][i][j]==4)
+      {
+        b_posval+=material_table[4]*B_Bishoptable[i][j];
+        
+      }
+      else if(this->board.board[1][i][j]==5)
+      {
+        b_posval+=material_table[5]*B_Queentable[i][j]; 
+      }
+      else if(this->board.board[1][i][j]==6)
+      {
+        b_posval+=material_table[5]*B_Kingtable[i][j];
+      }
+    }
+  }
+  posval=w_posval-b_posval;
+
+  return materialval+posval;
   
 }
 

@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <cmath>
 #include "../state/state.hpp"
-#include "./minimax.hpp"
+#include "./alpha-beta.hpp"
 using namespace std;
 Move m;
 /**
@@ -13,39 +13,33 @@ Move m;
  * @param depth You may need this for other policy
  * @return Move 
  */
-Move Minimax::get_move(State *state, int depth){
-    //auto actions = state->legal_actions;
-  Move ans;
+Move AlphaBeta::get_move(State *state, int depth){
+   //auto actions = state->legal_actions;
+   Move ans;
   /*Node* root=new Node;
   root->state=*state;
-  root->state.get_legal_actions();*/
-  //buildtree(root,0);
-  int val=minimax2(state,0,true,1);
-  /*vector<State*> child;
-  state->get_legal_actions();
-  for(auto it:state->legal_actions)
-  {
-    State* nextstate=state->next_state(it);
-    child.push_back(nextstate);
-  }*/
+  root->state.get_legal_actions();
+  Buildtree(root,0);
+  
   //cout<<val<<endl;
-  /*for(auto it:child)
+  for(auto it:root->child)
   {
     //cout<<it->val<<endl;
     if(it->val==val)
     {
-        ans=it->move;
+        ans.push_back(it->move);
         //cout<<it->val<<endl;
         break;
     }
   }*/
+  int val=alpha_beta2(state,0,-10000000,10000000,true,1);
   ans=m;
-  return ans;
+  return ans;//ans[rand()%ans.size()];
 }
 
-void buildtree(Node* root,int depth)
+void Buildtree(Node* root,int depth)
 {
-    if(depth==1)
+    if(depth==3)
         return ;
     for(int i=0;i<(int)root->state.legal_actions.size();i++)
     {
@@ -54,19 +48,17 @@ void buildtree(Node* root,int depth)
         tmp->state=*(root->state.next_state(root->state.legal_actions[i]));
         tmp->state.get_legal_actions();
         tmp->move=root->state.legal_actions[i];
-        /*if(depth==2)
-            tmp->val=tmp->state.evaluate();*/
         root->child.push_back(tmp);
-        buildtree(tmp,depth+1);
+        Buildtree(tmp,depth+1);
     }
     
     return;
 }
 
-int Minimax::minimax(Node* root, int depth, bool maxplayer)
+int AlphaBeta::alpha_beta(Node* root, int depth, int alpha, int beta, bool maxplayer)
 {
     //cout<<depth;
-    if(depth==1)
+    if(depth==3)
     {
         if((depth%2==0&&root->state.player==0)||(depth%2==1&&root->state.player==1))
         {
@@ -75,32 +67,46 @@ int Minimax::minimax(Node* root, int depth, bool maxplayer)
         }     
         else
             root->val=-root->state.evaluate();
+        
         //cout<<root->val<<endl;
         return root->val;
     }
         
     if(maxplayer)
     {
-        root->val=-10000000;
-        
+        root->val=-100000000;
         for(auto it:root->child)
         {
-            root->val=max(root->val,minimax(it,depth+1,false));
+            root->val=max(root->val,alpha_beta(it,depth+1,alpha,beta,false));
+            alpha=max(alpha,root->val);
+            if(alpha>=beta)
+            {
+                //cout<<"BB"<<endl;
+                break;
+            }
+                
         }
         return root->val;
     }
     else 
     {
-        root->val=10000000;
+        root->val=100000000;
         for(auto it:root->child)
         {
-            root->val=min(root->val,minimax(it,depth+1,true));
+            root->val=min(root->val,alpha_beta(it,depth+1,alpha,beta,true));
+            beta=min(beta,root->val);
+            if(beta<=alpha)
+            {
+                //cout<<"AA"<<endl;
+                break;
+            }
+                
         }
         return root->val;
     }
 }
 
-int Minimax::minimax2(State* state, int depth, bool maxplayer, int flag)
+int AlphaBeta::alpha_beta2(State* state, int depth, int alpha, int beta, bool maxplayer, int flag)
 {
     if(depth==4)
     {
@@ -116,31 +122,41 @@ int Minimax::minimax2(State* state, int depth, bool maxplayer, int flag)
     }  
     if(maxplayer)
     {
-        state->val=-10000000;
+        state->val=-100000000;
         state->get_legal_actions();
         for(auto it:state->legal_actions)
         {
             State* nextstate=state->next_state(it);
-            //state->val=max(state->val,minimax2(nextstate,depth+1,false));
-            int nextval=minimax2(nextstate,depth+1,false,0);
+            int nextval=alpha_beta2(nextstate,depth+1, alpha, beta,false,0);
             if(nextval>=state->val)
             {
                 state->val=nextval;
                 if(flag==1)
                     m=it;
             }
+            alpha=max(alpha,state->val);
+            if(alpha>=beta)
+            {
+                //cout<<"BB"<<endl;
+                break;
+            }
         }
-
         return state->val;
     }
     else 
     {
-        state->val=10000000;
+        state->val=100000000;
         state->get_legal_actions();
         for(auto it:state->legal_actions)
         {
             State* nextstate=state->next_state(it);
-            state->val=min(state->val,minimax2(nextstate,depth+1,true,0));
+            state->val=min(state->val,alpha_beta2(nextstate,depth+1, alpha, beta,true,0));
+            beta=min(beta,state->val);
+            if(beta<=alpha)
+            {
+                //cout<<"AA"<<endl;
+                break;
+            }
         }
         return state->val;
     }
