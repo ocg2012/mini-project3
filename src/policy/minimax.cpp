@@ -102,7 +102,7 @@ int Minimax::minimax(Node* root, int depth, bool maxplayer)
 
 int Minimax::minimax2(State* state, int depth, bool maxplayer, int flag)
 {
-    if(depth==4)
+    if(depth==6)
     {
         if((depth%2==0&&state->player==0)||(depth%2==1&&state->player==1))
         {
