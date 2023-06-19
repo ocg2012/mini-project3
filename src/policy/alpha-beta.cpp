@@ -5,7 +5,7 @@
 #include "../state/state.hpp"
 #include "./alpha-beta.hpp"
 using namespace std;
-Move m;
+Move m1;
 /**
  * @brief Randomly get a legal action
  * 
@@ -33,7 +33,7 @@ Move AlphaBeta::get_move(State *state, int depth){
     }
   }*/
   int val=alpha_beta2(state,0,-10000000,10000000,true,1);
-  ans=m;
+  ans=m1;
   return ans;//ans[rand()%ans.size()];
 }
 
@@ -132,7 +132,7 @@ int AlphaBeta::alpha_beta2(State* state, int depth, int alpha, int beta, bool ma
             {
                 state->val=nextval;
                 if(flag==1)
-                    m=it;
+                    m1=it;
             }
             alpha=max(alpha,state->val);
             if(alpha>=beta)

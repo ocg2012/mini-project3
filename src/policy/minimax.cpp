@@ -130,7 +130,6 @@ int Minimax::minimax2(State* state, int depth, bool maxplayer, int flag)
                     m=it;
             }
         }
-
         return state->val;
     }
     else 
