@@ -20,7 +20,7 @@ Move Minimax::get_move(State *state, int depth){
   root->state=*state;
   root->state.get_legal_actions();*/
   //buildtree(root,0);
-  int val=minimax2(state,0,true,1);
+  minimax2(state,0,true,1);
   /*vector<State*> child;
   state->get_legal_actions();
   for(auto it:state->legal_actions)
@@ -123,7 +123,7 @@ int Minimax::minimax2(State* state, int depth, bool maxplayer, int flag)
             State* nextstate=state->next_state(it);
             //state->val=max(state->val,minimax2(nextstate,depth+1,false));
             int nextval=minimax2(nextstate,depth+1,false,0);
-            if(nextval>=state->val)
+            if(nextval>state->val)
             {
                 state->val=nextval;
                 if(flag==1)
