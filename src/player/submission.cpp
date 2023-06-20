@@ -3,7 +3,7 @@
 
 #include "../config.hpp"
 #include "../state/state.hpp"
-#include "../policy/alpha-beta2.hpp"
+#include "../policy/submission.hpp"
 
 
 State* root;
