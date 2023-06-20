@@ -21,7 +21,7 @@ Move Minimax::get_move(State *state, int depth){
   root->state.get_legal_actions();*/
   //buildtree(root,0);
   state->get_legal_actions();
-  minimax2(state,0,true,1);
+  minimax2(state,depth,true,1);
   /*vector<State*> child;
   state->get_legal_actions();
   for(auto it:state->legal_actions)
@@ -43,7 +43,7 @@ Move Minimax::get_move(State *state, int depth){
   ans=m;
   return ans;
 }
-
+/*
 void buildtree(Node* root,int depth)
 {
     if(depth==1)
@@ -54,9 +54,7 @@ void buildtree(Node* root,int depth)
         Node* tmp=new Node;
         tmp->state=*(root->state.next_state(root->state.legal_actions[i]));
         tmp->state.get_legal_actions();
-        tmp->move=root->state.legal_actions[i];
-        /*if(depth==2)
-            tmp->val=tmp->state.evaluate();*/
+        tmp->move=root->state.legal_actions[i]
         root->child.push_back(tmp);
         buildtree(tmp,depth+1);
     }
@@ -99,19 +97,26 @@ int Minimax::minimax(Node* root, int depth, bool maxplayer)
         }
         return root->val;
     }
-}
+}*/
 
 int Minimax::minimax2(State* state, int depth, bool maxplayer, int flag)
 {
-    if(depth==3)
+    if(depth==0)
     {
-        if((depth%2==0&&state->player==0)||(depth%2==1&&state->player==1))
+        if((maxplayer&&state->player==0)||(!maxplayer&&state->player==1))
         {
-            state->val=state->evaluate();
+            state->val=state->evaluate2();
             //cout<<"AA"<<endl;
         }     
         else
-            state->val=-state->evaluate();
+            state->val=-state->evaluate2();
+        /*if((depth%2==0&&state->player==0)||(depth%2==1&&state->player==1))
+        {
+            state->val=state->evaluate2();
+            //cout<<"AA"<<endl;
+        }     
+        else
+            state->val=-state->evaluate2();*/
         //cout<<root->val<<endl;
         return state->val;
     }  
@@ -137,7 +142,7 @@ int Minimax::minimax2(State* state, int depth, bool maxplayer, int flag)
             State* nextstate=state->next_state(it);
             //state->val=max(state->val,minimax2(nextstate,depth+1,false));
             nextstate->get_legal_actions();
-            int nextval=minimax2(nextstate,depth+1,false,0);
+            int nextval=minimax2(nextstate,depth-1,false,0);
             if(nextval>state->val)
             {
                 state->val=nextval;
@@ -155,7 +160,7 @@ int Minimax::minimax2(State* state, int depth, bool maxplayer, int flag)
         {
             State* nextstate=state->next_state(it);
             nextstate->get_legal_actions();
-            state->val=min(state->val,minimax2(nextstate,depth+1,true,0));
+            state->val=min(state->val,minimax2(nextstate,depth-1,true,0));
         }
         return state->val;
     }

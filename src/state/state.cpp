@@ -233,6 +233,94 @@ int State::evaluate(){
   
 }
 
+int State::evaluate2(){
+  // [TODO] design your own evaluation function
+  int sum=0,sum1=0,materialval,posval,w_posval=0,b_posval=0;
+
+  for(int i=0;i<BOARD_H;i++)
+  {
+    for(int j=0;j<BOARD_W;j++)
+    {
+      sum+=material_table[this->board.board[0/*this->player*/][i][j]]*100 ;
+      
+    }
+  }
+  for(int i=0;i<BOARD_H;i++)
+  {
+    for(int j=0;j<BOARD_W;j++)
+    {
+      sum1+=material_table[this->board.board[1/*-this->player*/][i][j]]*100 ;
+      
+    }
+  }
+  //cout<<this->player<<endl;
+  materialval=sum-sum1;
+  for(int i=0;i<BOARD_H;i++)
+  {
+    for(int j=0;j<BOARD_W;j++)
+    {
+      if(this->board.board[0][i][j]==1)
+      {
+        w_posval+=material_table[1]*W_Pawntable[i][j];
+      }
+      else if(this->board.board[0][i][j]==2)
+      {
+        
+        w_posval+=material_table[2]*W_Rooktable[i][j];
+      }
+      else if(this->board.board[0][i][j]==3)
+      {
+        w_posval+=material_table[3]*W_Knighttable[i][j];
+        
+      }
+      else if(this->board.board[0][i][j]==4)
+      {
+        w_posval+=material_table[4]*W_Bishoptable[i][j];
+        
+      }
+      else if(this->board.board[0][i][j]==5)
+      {
+        w_posval+=material_table[5]*W_Queentable[i][j]; 
+      }
+      else if(this->board.board[0][i][j]==6)
+      {
+        w_posval+=material_table[5]*W_Kingtable[i][j];
+      }
+
+      if(this->board.board[1][i][j]==1)
+      {
+        b_posval+=material_table[1]*B_Pawntable[i][j];
+      }
+      else if(this->board.board[1][i][j]==2)
+      {
+        
+        b_posval+=material_table[2]*B_Rooktable[i][j];
+      }
+      else if(this->board.board[1][i][j]==3)
+      {
+        b_posval+=material_table[3]*B_Knighttable[i][j];
+        
+      }
+      else if(this->board.board[1][i][j]==4)
+      {
+        b_posval+=material_table[4]*B_Bishoptable[i][j];
+        
+      }
+      else if(this->board.board[1][i][j]==5)
+      {
+        b_posval+=material_table[5]*B_Queentable[i][j]; 
+      }
+      else if(this->board.board[1][i][j]==6)
+      {
+        b_posval+=material_table[5]*B_Kingtable[i][j];
+      }
+    }
+  }
+  posval=w_posval-b_posval;
+
+  return materialval/*+posval*/;
+  
+}
 
 /**
  * @brief return next state after the move

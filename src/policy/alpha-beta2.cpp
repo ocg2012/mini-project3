@@ -3,9 +3,9 @@
 #include <algorithm>
 #include <cmath>
 #include "../state/state.hpp"
-#include "./alpha-beta.hpp"
+#include "./alpha-beta2.hpp"
 using namespace std;
-Move m1;
+Move m2;
 /**
  * @brief Randomly get a legal action
  * 
@@ -13,7 +13,7 @@ Move m1;
  * @param depth You may need this for other policy
  * @return Move 
  */
-Move AlphaBeta::get_move(State *state, int depth){
+Move AlphaBeta2::get_move(State *state, int depth){
    //auto actions = state->legal_actions;
    Move ans;
   /*Node* root=new Node;
@@ -32,8 +32,9 @@ Move AlphaBeta::get_move(State *state, int depth){
         break;
     }
   }*/
+  //state->get_legal_actions();
   alpha_beta2(state,depth,-10000000,10000000,true,1);
-  ans=m1;
+  ans=m2;
   if(ans==pair<Point,Point> {{0,0},{0,0}})
   {
     state->get_legal_actions();
@@ -120,17 +121,17 @@ int AlphaBeta::alpha_beta(Node* root, int depth, int alpha, int beta, bool maxpl
     }
 }*/
 
-int AlphaBeta::alpha_beta2(State* state, int depth, int alpha, int beta, bool maxplayer, int flag)
+int AlphaBeta2::alpha_beta2(State* state, int depth, int alpha, int beta, bool maxplayer, int flag)
 {
     if(depth==0)
     {
         if((maxplayer&&state->player==0)||(!maxplayer&&state->player==1))
         {
-            state->val=state->evaluate2();
+            state->val=state->evaluate();
             //cout<<"AA"<<endl;
         }     
         else
-            state->val=-state->evaluate2();
+            state->val=-state->evaluate();
         //cout<<root->val<<endl;
         return state->val;
     }  
@@ -159,7 +160,7 @@ int AlphaBeta::alpha_beta2(State* state, int depth, int alpha, int beta, bool ma
             {
                 state->val=nextval;
                 if(flag==1)
-                    m1=it;
+                    m2=it;
             }
             alpha=max(alpha,state->val);
             if(alpha>=beta)

@@ -3,7 +3,7 @@
 
 #include "../config.hpp"
 #include "../state/state.hpp"
-#include "../policy/minimax.hpp"
+#include "../policy/alpha-beta2.hpp"
 
 
 State* root;
@@ -40,12 +40,13 @@ void read_board(std::ifstream& fin) {
  */
 void write_valid_spot(std::ofstream& fout) {
   // Keep updating the output until getting killed.
+  //int depth=1;
   while(true) {
     // Choose a random spot.
-    auto move = Minimax::get_move(root, 3);
+    auto move = AlphaBeta2::get_move(root, 6);
     fout << move.first.first << " " << move.first.second << " "\
          << move.second.first << " " << move.second.second << std::endl;
-    
+    //depth+=1;
     // Remember to flush the output to ensure the last action is written to file.
     fout.flush();
     break;
