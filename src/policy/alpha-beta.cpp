@@ -120,6 +120,19 @@ int AlphaBeta::alpha_beta2(State* state, int depth, int alpha, int beta, bool ma
         //cout<<root->val<<endl;
         return state->val;
     }  
+    /*if(state->game_state==WIN)
+    {
+        if((depth%2==0&&state->player==0)||(depth%2==1&&state->player==1))
+        {
+            state->val=state->evaluate();
+            //cout<<"AA"<<endl;
+        }     
+        else
+            state->val=-state->evaluate();
+        //cout<<root->val<<endl;
+        //cout<<"AA"<<endl;
+        return state->val;
+    }*/
     if(maxplayer)
     {
         state->val=-10000000;
