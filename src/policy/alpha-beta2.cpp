@@ -127,11 +127,11 @@ int AlphaBeta2::alpha_beta2(State* state, int depth, int alpha, int beta, bool m
     {
         if((maxplayer&&state->player==0)||(!maxplayer&&state->player==1))
         {
-            state->val=state->evaluate();
+            state->val=state->evaluate2();
             //cout<<"AA"<<endl;
         }     
         else
-            state->val=-state->evaluate();
+            state->val=-state->evaluate2();
         //cout<<root->val<<endl;
         return state->val;
     }  
