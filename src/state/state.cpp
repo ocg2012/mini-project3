@@ -152,7 +152,7 @@ int State::evaluate(){
   {
     for(int j=0;j<BOARD_W;j++)
     {
-      sum+=material_table[this->board.board[0/*this->player*/][i][j]] ;
+      sum+=material_table[this->board.board[0/*this->player*/][i][j]]*100 ;
       
     }
   }
@@ -160,7 +160,7 @@ int State::evaluate(){
   {
     for(int j=0;j<BOARD_W;j++)
     {
-      sum1+=material_table[this->board.board[1/*-this->player*/][i][j]];
+      sum1+=material_table[this->board.board[1/*-this->player*/][i][j]]*100;
       
     }
   }
@@ -241,7 +241,7 @@ int State::evaluate2(){
   {
     for(int j=0;j<BOARD_W;j++)
     {
-      sum+=material_table[this->board.board[0/*this->player*/][i][j]]*500 ;
+      sum+=material_table[this->board.board[0/*this->player*/][i][j]]*70 ;
       
     }
   }
@@ -249,7 +249,7 @@ int State::evaluate2(){
   {
     for(int j=0;j<BOARD_W;j++)
     {
-      sum1+=material_table[this->board.board[1/*-this->player*/][i][j]]*500 ;
+      sum1+=material_table[this->board.board[1/*-this->player*/][i][j]]*70 ;
       
     }
   }
