@@ -268,7 +268,7 @@ int State::evaluate2(){
         
         w_posval+=material_table[2]*W_Rooktable[i][j];
       }
-      else if(this->board.board[0][i][j]==3)
+      /*else if(this->board.board[0][i][j]==3)
       {
         w_posval+=material_table[3]*W_Knighttable[i][j];
         
@@ -285,7 +285,7 @@ int State::evaluate2(){
       else if(this->board.board[0][i][j]==6)
       {
         w_posval+=material_table[6]*W_Kingtable[i][j];
-      }
+      }*/
 
       if(this->board.board[1][i][j]==1)
       {
@@ -293,18 +293,15 @@ int State::evaluate2(){
       }
       else if(this->board.board[1][i][j]==2)
       {
-        
         b_posval+=material_table[2]*B_Rooktable[i][j];
       }
-      else if(this->board.board[1][i][j]==3)
+      /*else if(this->board.board[1][i][j]==3)
       {
         b_posval+=material_table[3]*B_Knighttable[i][j];
-        
       }
       else if(this->board.board[1][i][j]==4)
       {
         b_posval+=material_table[4]*B_Bishoptable[i][j];
-        
       }
       else if(this->board.board[1][i][j]==5)
       {
@@ -313,7 +310,7 @@ int State::evaluate2(){
       else if(this->board.board[1][i][j]==6)
       {
         b_posval+=material_table[6]*B_Kingtable[i][j];
-      }
+      }*/
     }
   }
   posval=w_posval-b_posval;
