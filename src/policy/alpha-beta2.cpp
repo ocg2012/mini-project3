@@ -35,7 +35,7 @@ Move AlphaBeta2::get_move(State *state, int depth){
   //state->get_legal_actions();
   alpha_beta2(state,depth,-10000000,10000000,true,1);
   ans=m2;
-  /*if(ans==pair<Point,Point> {{0,0},{0,0}})
+  if(ans==pair<Point,Point> {{0,0},{0,0}})
   {
     state->get_legal_actions();
     for(auto it:state->legal_actions)
@@ -48,7 +48,7 @@ Move AlphaBeta2::get_move(State *state, int depth){
         }
     }
     
-  }*/
+  }
   return ans;//ans[rand()%ans.size()];
 }
 
