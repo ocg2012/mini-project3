@@ -146,7 +146,7 @@ static const int material_table[7] = {0, 2, 6, 7, 8, 20, 100};
  */
 int State::evaluate(){
   // [TODO] design your own evaluation function
-  int sum=0,sum1=0,materialval,posval,w_posval=0,b_posval=0;
+  int sum=0,sum1=0,materialval;
 
   for(int i=0;i<BOARD_H;i++)
   {
@@ -281,11 +281,11 @@ int State::evaluate2(){
       else if(this->board.board[0][i][j]==5)
       {
         w_posval+=material_table[5]*W_Queentable[i][j]; 
-      }
+      }*/
       else if(this->board.board[0][i][j]==6)
       {
         w_posval+=material_table[5]*W_Kingtable[i][j];
-      }*/
+      }
 
       if(this->board.board[1][i][j]==1)
       {
@@ -309,11 +309,11 @@ int State::evaluate2(){
       else if(this->board.board[1][i][j]==5)
       {
         b_posval+=material_table[5]*B_Queentable[i][j]; 
-      }
+      }*/
       else if(this->board.board[1][i][j]==6)
       {
         b_posval+=material_table[5]*B_Kingtable[i][j];
-      }*/
+      }
     }
   }
   posval=w_posval-b_posval;
