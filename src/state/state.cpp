@@ -229,7 +229,7 @@ int State::evaluate(){
   }
   posval=w_posval-b_posval;
 
-  return materialval+posval;
+  return materialval/*+posval*/;
   
 }
 
