@@ -105,11 +105,11 @@ int Minimax::minimax2(State* state, int depth, bool maxplayer, int flag)
     {
         if((maxplayer&&state->player==0)||(!maxplayer&&state->player==1))
         {
-            state->val=state->evaluate2();
+            state->val=state->evaluate();
             //cout<<"AA"<<endl;
         }     
         else
-            state->val=-state->evaluate2();
+            state->val=-state->evaluate();
         /*if((depth%2==0&&state->player==0)||(depth%2==1&&state->player==1))
         {
             state->val=state->evaluate2();
