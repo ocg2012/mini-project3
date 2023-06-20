@@ -139,6 +139,7 @@ static const int B_Kingtable[6][5]={
 };
 
 static const int material_table[7] = {0, 2, 6, 7, 8, 20, 100};
+static const int material_table2[7] = {0, 1, 20, 40, 100, 500, 3000};
 /**
  * @brief evaluate the state
  * 
@@ -152,7 +153,7 @@ int State::evaluate(){
   {
     for(int j=0;j<BOARD_W;j++)
     {
-      sum+=material_table[this->board.board[0/*this->player*/][i][j]]*100;
+      sum+=material_table2[this->board.board[0/*this->player*/][i][j]]*100;
       
     }
   }
@@ -160,7 +161,7 @@ int State::evaluate(){
   {
     for(int j=0;j<BOARD_W;j++)
     {
-      sum1+=material_table[this->board.board[1/*-this->player*/][i][j]]*100;
+      sum1+=material_table2[this->board.board[1/*-this->player*/][i][j]]*100;
       
     }
   }
@@ -241,7 +242,7 @@ int State::evaluate2(){
   {
     for(int j=0;j<BOARD_W;j++)
     {
-      sum+=material_table[this->board.board[0/*this->player*/][i][j]]*70 ;
+      sum+=material_table[this->board.board[0/*this->player*/][i][j]]*100 ;
       
     }
   }
@@ -249,7 +250,7 @@ int State::evaluate2(){
   {
     for(int j=0;j<BOARD_W;j++)
     {
-      sum1+=material_table[this->board.board[1/*-this->player*/][i][j]]*70 ;
+      sum1+=material_table[this->board.board[1/*-this->player*/][i][j]]*100 ;
       
     }
   }
@@ -263,7 +264,7 @@ int State::evaluate2(){
       {
         w_posval+=material_table[1]*W_Pawntable[i][j];
       }
-      else if(this->board.board[0][i][j]==2)
+      /*else if(this->board.board[0][i][j]==2)
       {
         
         w_posval+=material_table[2]*W_Rooktable[i][j];
@@ -285,13 +286,13 @@ int State::evaluate2(){
       else if(this->board.board[0][i][j]==6)
       {
         w_posval+=material_table[6]*W_Kingtable[i][j];
-      }
+      }*/
 
       if(this->board.board[1][i][j]==1)
       {
         b_posval+=material_table[1]*B_Pawntable[i][j];
       }
-      else if(this->board.board[1][i][j]==2)
+      /*else if(this->board.board[1][i][j]==2)
       {
         b_posval+=material_table[2]*B_Rooktable[i][j];
       }
@@ -310,7 +311,7 @@ int State::evaluate2(){
       else if(this->board.board[1][i][j]==6)
       {
         b_posval+=material_table[6]*B_Kingtable[i][j];
-      }
+      }*/
     }
   }
   posval=w_posval-b_posval;
