@@ -16,22 +16,6 @@ Move m1;
 Move AlphaBeta::get_move(State *state, int depth){
    //auto actions = state->legal_actions;
    Move ans;
-  /*Node* root=new Node;
-  root->state=*state;
-  root->state.get_legal_actions();
-  Buildtree(root,0);
-  
-  //cout<<val<<endl;
-  for(auto it:root->child)
-  {
-    //cout<<it->val<<endl;
-    if(it->val==val)
-    {
-        ans.push_back(it->move);
-        //cout<<it->val<<endl;
-        break;
-    }
-  }*/
   alpha_beta2(state,depth,-10000000,10000000,true,1);
   ans=m1;
   if(ans==pair<Point,Point> {{0,0},{0,0}})
@@ -46,7 +30,6 @@ Move AlphaBeta::get_move(State *state, int depth){
             break;
         }
     }
-    
   }
   /*if(ans.first==premove.second&&ans.second==premove.first)
   {
@@ -139,19 +122,6 @@ int AlphaBeta::alpha_beta2(State* state, int depth, int alpha, int beta, bool ma
         //cout<<root->val<<endl;
         return state->val;
     }  
-    /*if(state->game_state==WIN)
-    {
-        if((depth%2==0&&state->player==0)||(depth%2==1&&state->player==1))
-        {
-            state->val=state->evaluate();
-            //cout<<"AA"<<endl;
-        }     
-        else
-            state->val=-state->evaluate();
-        //cout<<root->val<<endl;
-        //cout<<"AA"<<endl;
-        return state->val;
-    }*/
     if(maxplayer)
     {
         state->val=-10000000;
