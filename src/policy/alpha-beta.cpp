@@ -136,7 +136,7 @@ int AlphaBeta::alpha_beta2(State* state, int depth, int alpha, int beta, bool ma
     if(maxplayer)
     {
         state->val=-10000000;
-        state->get_legal_actions();
+        //state->get_legal_actions();
         for(auto it:state->legal_actions)
         {
             State* nextstate=state->next_state(it);
@@ -159,7 +159,7 @@ int AlphaBeta::alpha_beta2(State* state, int depth, int alpha, int beta, bool ma
     else 
     {
         state->val=10000000;
-        state->get_legal_actions();
+        //state->get_legal_actions();
         for(auto it:state->legal_actions)
         {
             State* nextstate=state->next_state(it);
