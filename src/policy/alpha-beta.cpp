@@ -5,7 +5,7 @@
 #include "../state/state.hpp"
 #include "./alpha-beta.hpp"
 using namespace std;
-vector<Move> m1;
+Move m1;
 /**
  * @brief Randomly get a legal action
  * 
@@ -15,7 +15,7 @@ vector<Move> m1;
  */
 Move AlphaBeta::get_move(State *state, int depth){
    //auto actions = state->legal_actions;
-   vector<Move> ans;
+   Move ans;
   /*Node* root=new Node;
   root->state=*state;
   root->state.get_legal_actions();
@@ -34,7 +34,7 @@ Move AlphaBeta::get_move(State *state, int depth){
   }*/
   alpha_beta2(state,depth,-10000000,10000000,true,1);
   ans=m1;
-  if(ans.empty()/*==pair<Point,Point> {{0,0},{0,0}}*/)
+  if(ans==pair<Point,Point> {{0,0},{0,0}})
   {
     state->get_legal_actions();
     for(auto it:state->legal_actions)
@@ -42,7 +42,7 @@ Move AlphaBeta::get_move(State *state, int depth){
         State* nextstate=state->next_state(it);
         if(nextstate->game_state==WIN)
         {
-            ans.push_back(it);
+            ans=it;
             break;
         }
     }
@@ -53,7 +53,7 @@ Move AlphaBeta::get_move(State *state, int depth){
 
   }
   premove=ans;*/
-  return /*ans;*/ans[rand()%ans.size()];
+  return ans;//ans[rand()%ans.size()];
 }
 
 /*void Buildtree(Node* root,int depth)
@@ -160,11 +160,11 @@ int AlphaBeta::alpha_beta2(State* state, int depth, int alpha, int beta, bool ma
         {
             State* nextstate=state->next_state(it);
             int nextval=alpha_beta2(nextstate,depth-1, alpha, beta,false,0);
-            if(nextval>=state->val)
+            if(nextval>state->val)
             {
                 state->val=nextval;
                 if(flag==1)
-                    m1.push_back(it);
+                    m1=it;
             }
             alpha=max(alpha,state->val);
             if(alpha>=beta)
