@@ -58,8 +58,8 @@ static const int W_Rooktable[6][5]={
 static const int W_Bishoptable[6][5]={
   {-10,-10,-10,-10,-20},
   {-10,0,0,0,-10},
-  {-10,5,10,10,-10},
-  {-10,10,10,10,-10},
+  {-10,5,10,10,-5},
+  {-10,10,10,10,0},
   {-10,5,0,0,0},
   {-20,-10,-10,-10,-10}
 };
@@ -67,7 +67,7 @@ static const int W_Knighttable[6][5]={
   {-50,-40,-30,-40-50},
   {-40,-20,5,-20,-40},
   {-30,5,20,5,-30},
-  {-10,5,20,5,-30},
+  {-10,5,20,10,-30},
   {-40,-20,5,-10,-40},
   {-50,-40,-30,-40,-50}
 };
@@ -108,15 +108,15 @@ static const int B_Rooktable[6][5]={
 static const int B_Bishoptable[6][5]={
   {-10,-10,-10,-10,-20},
   {0,0,0,5,-10},
-  {-10,10,10,10,-10},
-  {-10,10,10,5,-10},
+  {0,10,10,10,-10},
+  {-5,10,10,5,-10},
   {-10,0,0,0,-10},
   {-20,-10,-10,-10,-10}
 };
 static const int B_Knighttable[6][5]={
   {-50,-40,-30,-40-50},
   {-40,-10,5,-20,-40},
-  {-30,5,20,5,-10},
+  {-30,10,20,5,-10},
   {-30,5,20,5,-30},
   {-40,-20,5,-20,-40},
   {-50,-40,-30,-40,-50}
@@ -263,7 +263,7 @@ int State::evaluate2(){
       {
         w_posval+=material_table[1]*W_Pawntable[i][j];
       }
-      /*else if(this->board.board[0][i][j]==2)
+      else if(this->board.board[0][i][j]==2)
       {
         
         w_posval+=material_table[2]*W_Rooktable[i][j];
@@ -281,7 +281,7 @@ int State::evaluate2(){
       else if(this->board.board[0][i][j]==5)
       {
         w_posval+=material_table[5]*W_Queentable[i][j]; 
-      }*/
+      }
       else if(this->board.board[0][i][j]==6)
       {
         w_posval+=material_table[6]*W_Kingtable[i][j];
@@ -291,7 +291,7 @@ int State::evaluate2(){
       {
         b_posval+=material_table[1]*B_Pawntable[i][j];
       }
-      /*else if(this->board.board[1][i][j]==2)
+      else if(this->board.board[1][i][j]==2)
       {
         b_posval+=material_table[2]*B_Rooktable[i][j];
       }
@@ -306,7 +306,7 @@ int State::evaluate2(){
       else if(this->board.board[1][i][j]==5)
       {
         b_posval+=material_table[5]*B_Queentable[i][j]; 
-      }*/
+      }
       else if(this->board.board[1][i][j]==6)
       {
         b_posval+=material_table[6]*B_Kingtable[i][j];
