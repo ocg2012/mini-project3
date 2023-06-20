@@ -284,7 +284,7 @@ int State::evaluate2(){
       }
       else if(this->board.board[0][i][j]==6)
       {
-        w_posval+=material_table[5]*W_Kingtable[i][j];
+        w_posval+=material_table[6]*W_Kingtable[i][j];
       }
 
       if(this->board.board[1][i][j]==1)
@@ -312,7 +312,7 @@ int State::evaluate2(){
       }
       else if(this->board.board[1][i][j]==6)
       {
-        b_posval+=material_table[5]*B_Kingtable[i][j];
+        b_posval+=material_table[6]*B_Kingtable[i][j];
       }
     }
   }
