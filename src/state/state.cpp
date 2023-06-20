@@ -72,12 +72,12 @@ static const int W_Knighttable[6][5]={
   {-50,-40,-30,-40,-50}
 };
 static const int W_Queentable[6][5]={
-  {-20,-5,-10,-10,-20},
+  {-10,0,-5,-5,-10},
   {-5,0,5,0,-10},
   {0,5,5,5,-10},
   {-10,5,5,5,-10},
   {-10,0,5,0,-10},
-  {-20,-10,-10,-5,-20}
+  {-10,-5,-5,0,-10}
 };
 static const int W_Kingtable[6][5]={
   {-30,-40,-50,-40,-30},
@@ -122,12 +122,12 @@ static const int B_Knighttable[6][5]={
   {-50,-40,-30,-40,-50}
 };
 static const int B_Queentable[6][5]={
-  {-20,-5,-10,-10,-20},
+  {-10,0,-5,-5,-10},
   {-10,0,5,0,-10},
   {-10,5,5,5,-10},
   {-10,5,5,5,0},
   {-10,0,5,0,-5},
-  {-20,-10,-10,-5,-20}
+  {-10,-5,-5,-0,-10}
 };
 static const int B_Kingtable[6][5]={
   {10,20,30,20,10},
@@ -152,7 +152,7 @@ int State::evaluate(){
   {
     for(int j=0;j<BOARD_W;j++)
     {
-      sum+=material_table[this->board.board[0/*this->player*/][i][j]] ;
+      sum+=material_table[this->board.board[0/*this->player*/][i][j]]*100 ;
       
     }
   }
@@ -160,13 +160,13 @@ int State::evaluate(){
   {
     for(int j=0;j<BOARD_W;j++)
     {
-      sum1+=material_table[this->board.board[1/*-this->player*/][i][j]] ;
+      sum1+=material_table[this->board.board[1/*-this->player*/][i][j]]*100 ;
       
     }
   }
   //cout<<this->player<<endl;
   materialval=sum-sum1;
-  /*for(int i=0;i<BOARD_H;i++)
+  for(int i=0;i<BOARD_H;i++)
   {
     for(int j=0;j<BOARD_W;j++)
     {
@@ -227,9 +227,9 @@ int State::evaluate(){
       }
     }
   }
-  posval=w_posval-b_posval;*/
+  posval=w_posval-b_posval;
 
-  return materialval/*+posval*/;
+  return materialval+posval;
   
 }
 
